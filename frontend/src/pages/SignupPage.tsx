@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import api from '../services/api';
+import { signupUser } from '../services/api';
 
 interface SignupData {
   email: string;
@@ -35,11 +35,13 @@ const SignupPage: React.FC = () => {
     setError('');
     
     try {
-      const response = await api.post('/auth/signup', formData);
-      auth.login(response.data.token);
-      navigate('/');
+      // Using the signupUser function from api.ts to handle the signup
+      const response = await signupUser(formData);
+      // For now, redirect to login after successful signup
+      navigate('/login');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to sign up');
+      console.error('Signup error:', err);
     }
   };
 
