@@ -9,6 +9,7 @@ import {OrderStatus,OrderStatusSchema,} from 'src/schemas/order-status.schema';
 import { AuthModule } from 'src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { WebhookLog, WebhookLogSchema } from 'src/schemas/webhook-log.schema';
+import { User, UserSchema } from 'src/schemas/user.schema';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { WebhookLog, WebhookLogSchema } from 'src/schemas/webhook-log.schema';
       { name: Order.name, schema: OrderSchema },
       { name: OrderStatus.name, schema: OrderStatusSchema },
       { name: WebhookLog.name, schema: WebhookLogSchema }, // Add WebhookLog schema
+      { name: User.name, schema: UserSchema } // Add User schema for schools lookup
     ]),
   ],
   controllers: [PaymentsController],
