@@ -27,7 +27,7 @@ import TailwindTest from './pages/TailwindTest';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/demo',
     element: <TailwindTest />,
   },
   {
