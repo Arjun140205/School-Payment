@@ -29,6 +29,7 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  console.log('Request:', config.method, config.url, config.data);
   return config;
 }, (error) => {
   return Promise.reject(error);
@@ -36,8 +37,12 @@ api.interceptors.request.use((config) => {
 
 // Add response interceptor to handle 401 errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('Response:', response.status, response.config.url, response.data);
+    return response;
+  },
   (error) => {
+    console.error('API Error:', error.response?.status, error.response?.data);
     if (error.response?.status === 401) {
       localStorage.removeItem('auth_token');
       window.location.href = '/login';
@@ -50,8 +55,8 @@ api.interceptors.response.use(
 export const loginUser = async (email: string, password: string) => {
   try {
     const { data } = await api.post('/auth/login', { email, password });
-    localStorage.setItem('auth_token', data.token);
-    api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+    localStorage.setItem('auth_token', data.accessToken);
+    api.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
     return data;
   } catch (error) {
     console.error('Login error:', error);
@@ -69,11 +74,13 @@ export const loginUser = async (email: string, password: string) => {
 export const signupUser = async (userData: {
   email: string;
   password: string;
-  name: string;
-  schoolId: string;
-  role: 'admin' | 'school';
+  name?: string;
+  schoolId?: string;
+  role?: 'admin' | 'school';
 }) => {
-  const { data } = await api.post('/auth/signup', userData);
+  // Extract only the fields the backend expects
+  const { email, password } = userData;
+  const { data } = await api.post('/auth/signup', { email, password });
   return data;
 };
 
