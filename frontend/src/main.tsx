@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 // Import CSS before any components
 import './index.css';
+// Import our custom luxury theme CSS
+import './styles/luxury-theme.css';
+// Import custom effects CSS
+import './styles/luxury-effects.css';
 
 // Force stylesheet to be loaded first
 document.addEventListener('DOMContentLoaded', () => {
