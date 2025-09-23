@@ -1,0 +1,131 @@
+/* Modern Theme Colors */
+:root {
+  --modern-primary: #3B82F6;
+  --modern-primary-dark: #2563EB;
+  --modern-primary-light: #60A5FA;
+  --modern-secondary: #10B981;
+  --modern-secondary-dark: #059669;
+  --modern-secondary-light: #34D399;
+  --modern-dark: #1E293B;
+  --modern-dark-light: #334155;
+  --modern-light: #F1F5F9;
+  --modern-light-dark: #E2E8F0;
+  --modern-accent: #8B5CF6;
+  --modern-accent-light: #A78BFA;
+  --modern-text: #0F172A;
+  --modern-text-light: #475569;
+}
+
+/* Custom utility classes */
+.bg-modern-primary {
+  background-color: var(--modern-primary);
+}
+.bg-modern-primary-dark {
+  background-color: var(--modern-primary-dark);
+}
+.bg-modern-primary-light {
+  background-color: var(--modern-primary-light);
+}
+.bg-modern-secondary {
+  background-color: var(--modern-secondary);
+}
+.bg-modern-secondary-dark {
+  background-color: var(--modern-secondary-dark);
+}
+.bg-modern-secondary-light {
+  background-color: var(--modern-secondary-light);
+}
+.bg-modern-dark {
+  background-color: var(--modern-dark);
+}
+.bg-modern-dark-light {
+  background-color: var(--modern-dark-light);
+}
+.bg-modern-light {
+  background-color: var(--modern-light);
+}
+.bg-modern-light-dark {
+  background-color: var(--modern-light-dark);
+}
+.bg-modern-accent {
+  background-color: var(--modern-accent);
+}
+.bg-modern-accent-light {
+  background-color: var(--modern-accent-light);
+}
+
+/* Text colors */
+.text-modern-text {
+  color: var(--modern-text);
+}
+.text-modern-text-light {
+  color: var(--modern-text-light);
+}
+.text-modern-primary {
+  color: var(--modern-primary);
+}
+.text-modern-secondary {
+  color: var(--modern-secondary);
+}
+.text-modern-accent {
+  color: var(--modern-accent);
+}
+
+/* Border colors */
+.border-modern-primary {
+  border-color: var(--modern-primary);
+}
+.border-modern-secondary {
+  border-color: var(--modern-secondary);
+}
+.border-modern-accent {
+  border-color: var(--modern-accent);
+}
+.border-modern-dark {
+  border-color: var(--modern-dark);
+}
+.border-modern-light {
+  border-color: var(--modern-light);
+}
+
+/* Opacity variants */
+.bg-modern-primary\/20 {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+.bg-modern-primary\/50 {
+  background-color: rgba(59, 130, 246, 0.5);
+}
+.border-modern-primary\/20 {
+  border-color: rgba(59, 130, 246, 0.2);
+}
+.border-modern-primary\/50 {
+  border-color: rgba(59, 130, 246, 0.5);
+}
+.border-modern-secondary\/20 {
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Hover variants */
+.hover\:bg-modern-primary:hover {
+  background-color: var(--modern-primary);
+}
+.hover\:bg-modern-primary-dark:hover {
+  background-color: var(--modern-primary-dark);
+}
+.hover\:text-modern-primary:hover {
+  color: var(--modern-primary);
+}
+.hover\:text-modern-secondary:hover {
+  color: var(--modern-secondary);
+}
+.hover\:border-modern-primary:hover {
+  border-color: var(--modern-primary);
+}
+.hover\:from-modern-primary:hover {
+  --tw-gradient-from: #3B82F6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.hover\:to-modern-primary-light:hover {
+  --tw-gradient-to: var(--modern-primary-light) var(--tw-gradient-to-position);
+}
