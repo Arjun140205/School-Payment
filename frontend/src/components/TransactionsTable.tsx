@@ -23,19 +23,19 @@ interface TransactionsTableProps {
 }
 
 const StatusBadge = ({ status }: { status: TransactionStatus }) => {
-  const baseClasses = 'px-2 py-1 text-xs font-semibold rounded-full';
+  const baseClasses = 'px-2 py-1 text-xs font-semibold rounded-full transition-all duration-300';
   
   const normalizedStatus = status.toUpperCase();
-  let colorClasses = 'bg-gray-100 text-gray-800';
+  let colorClasses = 'bg-cool-slate-lighter text-cool-slate-darker';
   
   if (normalizedStatus === 'SUCCESS' || normalizedStatus === 'COMPLETED') {
-    colorClasses = 'bg-green-100 text-green-800';
+    colorClasses = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300';
   } else if (normalizedStatus === 'PENDING') {
-    colorClasses = 'bg-yellow-100 text-yellow-800';
+    colorClasses = 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300';
   } else if (normalizedStatus === 'FAILED') {
-    colorClasses = 'bg-red-100 text-red-800';
+    colorClasses = 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300';
   } else if (normalizedStatus === 'REFUNDED') {
-    colorClasses = 'bg-purple-100 text-purple-800';
+    colorClasses = 'bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300';
   }
 
   return <span className={`${baseClasses} ${colorClasses}`}>{status}</span>;
@@ -151,122 +151,129 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
     <div className="space-y-4">
       {/* Search and Filter Controls */}
       <div className="flex flex-wrap gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Search transactions..."
-          className="luxury-input"
-          value={filters.search}
-          onChange={(e) => handleFilterChange('search', e.target.value)}
-        />
+        <div className="relative w-full sm:w-auto flex-grow">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg className="h-5 w-5 text-cool-slate" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            placeholder="Search transactions..."
+            className="w-full pl-10 px-4 py-2 border border-gray-200 rounded-lg dark:bg-cool-dark-light dark:border-cool-slate-darker/30 dark:text-gray-200 focus:ring-2 focus:ring-cool-indigo/30 focus:border-cool-indigo dark:focus:border-cool-teal outline-none transition-all duration-200 hover:border-cool-slate-light"
+            value={filters.search}
+            onChange={(e) => handleFilterChange('search', e.target.value)}
+          />
+        </div>
       </div>
 
-      <div className="overflow-x-auto rounded-lg shadow-lg dark:shadow-gold-sm border border-gray-200 dark:border-luxury-charcoal">
-        <table className="luxury-table">
-        <thead className="bg-gray-50 dark:bg-luxury-charcoal">
+      <div className="overflow-x-auto rounded-lg shadow-lg border border-gray-100 dark:border-cool-slate-darker/20">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-cool-slate-darker/30">
+        <thead className="bg-gray-50 dark:bg-cool-dark-light">
           <tr>
             <th
               onClick={() => handleSort('collect_id')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>Transaction ID</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('collect_id')}
                 </span>
               </div>
             </th>
             <th
               onClick={() => handleSort('custom_order_id')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>Order ID</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('custom_order_id')}
                 </span>
               </div>
             </th>
             <th
               onClick={() => handleSort('school_id')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>School ID</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('school_id')}
                 </span>
               </div>
             </th>
             <th
               onClick={() => handleSort('gateway')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>Gateway</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('gateway')}
                 </span>
               </div>
             </th>
             <th
               onClick={() => handleSort('order_amount')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>Amount</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('order_amount')}
                 </span>
               </div>
             </th>
             <th
               onClick={() => handleSort('status')}
-              className="luxury-table-header group"
+              className="px-6 py-3 text-left text-xs font-medium text-cool-slate-darker dark:text-cool-slate-light uppercase tracking-wider cursor-pointer group"
             >
               <div className="flex items-center space-x-2">
                 <span>Status</span>
-                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                <span className="text-cool-slate dark:text-cool-teal group-hover:text-cool-indigo dark:group-hover:text-cool-teal-light transition-colors duration-200">
                   {getSortIcon('status')}
                 </span>
               </div>
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white dark:bg-luxury-dark divide-y divide-gray-200 dark:divide-luxury-charcoal">
+        <tbody className="bg-white dark:bg-cool-dark divide-y divide-gray-200 dark:divide-cool-slate-darker/20">
           {paginatedTransactions.length > 0 ? paginatedTransactions.map((transaction) => (
-            <tr key={transaction.collect_id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
-              <td className="luxury-table-cell">
-                <span className="text-gray-900 dark:text-luxury-text-secondary font-medium">{transaction.collect_id}</span>
+            <tr key={transaction.collect_id} className="hover:bg-gray-50 dark:hover:bg-cool-dark-light/40 transition-all duration-200">
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                <span className="text-cool-slate-darker dark:text-cool-slate-light font-medium">{transaction.collect_id}</span>
               </td>
-              <td className="luxury-table-cell">
-                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.custom_order_id}</span>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                <span className="text-cool-slate-darker dark:text-cool-slate">{transaction.custom_order_id}</span>
               </td>
-              <td className="luxury-table-cell">
-                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.school_id}</span>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                <span className="text-cool-slate-darker dark:text-cool-slate">{transaction.school_id}</span>
               </td>
-              <td className="luxury-table-cell">
-                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.gateway || 'N/A'}</span>
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                <span className="text-cool-slate-darker dark:text-cool-slate">{transaction.gateway || 'N/A'}</span>
               </td>
-              <td className="luxury-table-cell">
-                <span className="text-gray-900 dark:text-luxury-gold font-medium">
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                <span className="text-cool-slate-darker dark:text-cool-teal font-medium">
                   {new Intl.NumberFormat('en-IN', {
                     style: 'currency',
                     currency: 'INR'
                   }).format(transaction.order_amount)}
                 </span>
               </td>
-              <td className="luxury-table-cell">
+              <td className="px-6 py-4 whitespace-nowrap text-sm">
                 <StatusBadge status={transaction.status} />
               </td>
             </tr>
           )) : (
             <tr>
-              <td colSpan={6} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-luxury-text-muted">
+              <td colSpan={6} className="px-6 py-10 text-center text-sm text-cool-slate dark:text-cool-slate-light">
                 <div className="flex flex-col items-center justify-center space-y-3">
-                  <svg className="h-10 w-10 text-gray-400 dark:text-luxury-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-16 w-16 text-cool-slate-light dark:text-cool-slate" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p>No transactions found</p>
+                  <p className="text-base">No transactions found</p>
                 </div>
               </td>
             </tr>
@@ -281,7 +288,7 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+            className="px-4 py-2 border border-gray-200 dark:border-cool-slate-darker/30 rounded-md bg-white dark:bg-cool-dark-light text-cool-slate-darker dark:text-cool-slate-light disabled:opacity-50 hover:bg-gray-50 hover:border-cool-slate-light dark:hover:bg-cool-dark-lighter/50 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0"
           >
             ← Previous
           </button>
@@ -290,10 +297,10 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`px-4 py-2 border rounded-md transition-all duration-200 ${
+              className={`px-4 py-2 border rounded-md transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 ${
                 currentPage === page
-                  ? 'bg-blue-600 dark:bg-amber-500 border-blue-600 dark:border-amber-500 text-white dark:text-gray-900 font-medium'
-                  : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  ? 'bg-cool-indigo dark:bg-cool-teal border-cool-indigo dark:border-cool-teal text-white font-medium'
+                  : 'bg-white dark:bg-cool-dark-light border-gray-200 dark:border-cool-slate-darker/30 text-cool-slate-darker dark:text-cool-slate-light hover:border-cool-slate-light dark:hover:border-cool-slate-darker/50'
               }`}
             >
               {page}
@@ -303,7 +310,7 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+            className="px-4 py-2 border border-gray-200 dark:border-cool-slate-darker/30 rounded-md bg-white dark:bg-cool-dark-light text-cool-slate-darker dark:text-cool-slate-light disabled:opacity-50 hover:bg-gray-50 hover:border-cool-slate-light dark:hover:bg-cool-dark-lighter/50 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0"
           >
             Next →
           </button>
