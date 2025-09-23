@@ -10,15 +10,15 @@ export function ThemeToggle() {
       type="button"
       className={`
         relative rounded-full p-2 inline-flex items-center justify-center 
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-luxury-dark
-        focus:ring-gray-400 dark:focus:ring-luxury-gold
-        transition-all duration-300
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-cool-dark
+        focus:ring-cool-indigo/50
+        transition-all duration-300 transform hover:scale-110 active:scale-95
         ${theme === 'dark' 
-          ? 'bg-gradient-to-r from-luxury-gold to-yellow-500 text-luxury-dark hover:shadow-md hover:shadow-luxury-gold/20' 
-          : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+          ? 'bg-gradient-to-r from-cool-indigo to-cool-teal text-white hover:shadow-lg hover:shadow-cool-teal/20' 
+          : 'bg-cool-slate-lighter hover:bg-cool-slate-light text-cool-slate-darker'
         }
       `}
-      aria-label="Toggle dark mode"
+      aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
         <div className="relative">
