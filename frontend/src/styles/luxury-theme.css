@@ -1,0 +1,103 @@
+/* Luxury Theme Colors */
+:root {
+  --luxury-black: #0A0A0A;
+  --luxury-dark: #121212;
+  --luxury-gray: #1E1E1E;
+  --luxury-charcoal: #2A2A2A;
+  --luxury-gold: #D4AF37;
+  --luxury-gold-light: #FFD700;
+  --luxury-gold-dark: #996515;
+  --luxury-text: #FFFFFF;
+  --luxury-text-secondary: #CCCCCC;
+  --luxury-text-muted: #999999;
+}
+
+/* Custom utility classes */
+.bg-luxury-black {
+  background-color: var(--luxury-black);
+}
+.bg-luxury-dark {
+  background-color: var(--luxury-dark);
+}
+.bg-luxury-gray {
+  background-color: var(--luxury-gray);
+}
+.bg-luxury-charcoal {
+  background-color: var(--luxury-charcoal);
+}
+.bg-luxury-gold {
+  background-color: var(--luxury-gold);
+}
+.bg-luxury-gold-light {
+  background-color: var(--luxury-gold-light);
+}
+.bg-luxury-gold-dark {
+  background-color: var(--luxury-gold-dark);
+}
+
+/* Text colors */
+.text-luxury-text {
+  color: var(--luxury-text);
+}
+.text-luxury-text-secondary {
+  color: var(--luxury-text-secondary);
+}
+.text-luxury-text-muted {
+  color: var(--luxury-text-muted);
+}
+.text-luxury-gold {
+  color: var(--luxury-gold);
+}
+.text-luxury-gold-light {
+  color: var(--luxury-gold-light);
+}
+.text-luxury-gold-dark {
+  color: var(--luxury-gold-dark);
+}
+
+/* Border colors */
+.border-luxury-charcoal {
+  border-color: var(--luxury-charcoal);
+}
+.border-luxury-gold {
+  border-color: var(--luxury-gold);
+}
+
+/* Opacity variants */
+.bg-luxury-gray\/30 {
+  background-color: rgba(30, 30, 30, 0.3);
+}
+.border-luxury-charcoal\/50 {
+  border-color: rgba(42, 42, 42, 0.5);
+}
+.border-luxury-charcoal\/70 {
+  border-color: rgba(42, 42, 42, 0.7);
+}
+.border-luxury-gold\/20 {
+  border-color: rgba(212, 175, 55, 0.2);
+}
+.border-luxury-gold\/50 {
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+/* Hover variants */
+.hover\:bg-luxury-gray:hover {
+  background-color: var(--luxury-gray);
+}
+.hover\:text-luxury-gold:hover {
+  color: var(--luxury-gold);
+}
+.hover\:border-luxury-gold:hover {
+  border-color: var(--luxury-gold);
+}
+.hover\:text-yellow-500:hover {
+  color: #EAB308; /* tailwind yellow-500 */
+}
+.hover\:from-yellow-500:hover {
+  --tw-gradient-from: #EAB308 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(234 179 8 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.hover\:to-luxury-gold:hover {
+  --tw-gradient-to: var(--luxury-gold) var(--tw-gradient-to-position);
+}
