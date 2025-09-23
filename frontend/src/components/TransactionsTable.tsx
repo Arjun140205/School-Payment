@@ -24,13 +24,19 @@ interface TransactionsTableProps {
 
 const StatusBadge = ({ status }: { status: TransactionStatus }) => {
   const baseClasses = 'px-2 py-1 text-xs font-semibold rounded-full';
-  const colorClasses = status === 'Success'
-    ? 'bg-green-100 text-green-800'
-    : status === 'Pending'
-    ? 'bg-yellow-100 text-yellow-800'
-    : status === 'Failed'
-    ? 'bg-red-100 text-red-800'
-    : 'bg-gray-100 text-gray-800';
+  
+  const normalizedStatus = status.toUpperCase();
+  let colorClasses = 'bg-gray-100 text-gray-800';
+  
+  if (normalizedStatus === 'SUCCESS' || normalizedStatus === 'COMPLETED') {
+    colorClasses = 'bg-green-100 text-green-800';
+  } else if (normalizedStatus === 'PENDING') {
+    colorClasses = 'bg-yellow-100 text-yellow-800';
+  } else if (normalizedStatus === 'FAILED') {
+    colorClasses = 'bg-red-100 text-red-800';
+  } else if (normalizedStatus === 'REFUNDED') {
+    colorClasses = 'bg-purple-100 text-purple-800';
+  }
 
   return <span className={`${baseClasses} ${colorClasses}`}>{status}</span>;
 };
@@ -144,107 +150,150 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
   return (
     <div className="space-y-4">
       {/* Search and Filter Controls */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 mb-6">
         <input
           type="text"
           placeholder="Search transactions..."
-          className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="luxury-input"
           value={filters.search}
           onChange={(e) => handleFilterChange('search', e.target.value)}
         />
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-        <thead className="bg-gray-50 dark:bg-gray-700">
+      <div className="overflow-x-auto rounded-lg shadow-lg dark:shadow-gold-sm border border-gray-200 dark:border-luxury-charcoal">
+        <table className="luxury-table">
+        <thead className="bg-gray-50 dark:bg-luxury-charcoal">
           <tr>
             <th
               onClick={() => handleSort('collect_id')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              Transaction ID {getSortIcon('collect_id')}
+              <div className="flex items-center space-x-2">
+                <span>Transaction ID</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('collect_id')}
+                </span>
+              </div>
             </th>
             <th
               onClick={() => handleSort('custom_order_id')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              Order ID {getSortIcon('custom_order_id')}
+              <div className="flex items-center space-x-2">
+                <span>Order ID</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('custom_order_id')}
+                </span>
+              </div>
             </th>
             <th
               onClick={() => handleSort('school_id')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              School ID {getSortIcon('school_id')}
+              <div className="flex items-center space-x-2">
+                <span>School ID</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('school_id')}
+                </span>
+              </div>
             </th>
             <th
               onClick={() => handleSort('gateway')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              Gateway {getSortIcon('gateway')}
+              <div className="flex items-center space-x-2">
+                <span>Gateway</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('gateway')}
+                </span>
+              </div>
             </th>
             <th
               onClick={() => handleSort('order_amount')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              Amount {getSortIcon('order_amount')}
+              <div className="flex items-center space-x-2">
+                <span>Amount</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('order_amount')}
+                </span>
+              </div>
             </th>
             <th
               onClick={() => handleSort('status')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-200"
+              className="luxury-table-header group"
             >
-              Status {getSortIcon('status')}
+              <div className="flex items-center space-x-2">
+                <span>Status</span>
+                <span className="text-gray-400 dark:text-luxury-gold group-hover:opacity-100 transition-opacity">
+                  {getSortIcon('status')}
+                </span>
+              </div>
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-          {paginatedTransactions.map((transaction) => (
-            <tr key={transaction.collect_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {transaction.collect_id}
+        <tbody className="bg-white dark:bg-luxury-dark divide-y divide-gray-200 dark:divide-luxury-charcoal">
+          {paginatedTransactions.length > 0 ? paginatedTransactions.map((transaction) => (
+            <tr key={transaction.collect_id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
+              <td className="luxury-table-cell">
+                <span className="text-gray-900 dark:text-luxury-text-secondary font-medium">{transaction.collect_id}</span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {transaction.custom_order_id}
+              <td className="luxury-table-cell">
+                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.custom_order_id}</span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {transaction.school_id}
+              <td className="luxury-table-cell">
+                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.school_id}</span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {transaction.gateway || 'N/A'}
+              <td className="luxury-table-cell">
+                <span className="text-gray-900 dark:text-luxury-text-secondary">{transaction.gateway || 'N/A'}</span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {new Intl.NumberFormat('en-IN', {
-                  style: 'currency',
-                  currency: 'INR'
-                }).format(transaction.order_amount)}
+              <td className="luxury-table-cell">
+                <span className="text-gray-900 dark:text-luxury-gold font-medium">
+                  {new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR'
+                  }).format(transaction.order_amount)}
+                </span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="luxury-table-cell">
                 <StatusBadge status={transaction.status} />
               </td>
             </tr>
-          ))}
+          )) : (
+            <tr>
+              <td colSpan={6} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-luxury-text-muted">
+                <div className="flex flex-col items-center justify-center space-y-3">
+                  <svg className="h-10 w-10 text-gray-400 dark:text-luxury-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p>No transactions found</p>
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex justify-center space-x-2 mt-4">
+        <div className="flex justify-center space-x-2 mt-8">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
           >
-            Previous
+            ← Previous
           </button>
           
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`px-4 py-2 border rounded-md ${
+              className={`px-4 py-2 border rounded-md transition-all duration-200 ${
                 currentPage === page
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white text-gray-700'
+                  ? 'bg-blue-600 dark:bg-amber-500 border-blue-600 dark:border-amber-500 text-white dark:text-gray-900 font-medium'
+                  : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
               {page}
@@ -254,9 +303,9 @@ export function TransactionsTable({ transactions, itemsPerPage = 10 }: Transacti
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 disabled:opacity-50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
           >
-            Next
+            Next →
           </button>
         </div>
       )}
