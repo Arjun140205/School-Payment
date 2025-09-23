@@ -29,10 +29,17 @@ export function TransactionsOverview() {
   useEffect(() => {
     const loadSchools = async () => {
       try {
+        console.log('Loading schools...');
         const schoolsData = await fetchSchools();
+        console.log('Schools loaded:', schoolsData);
         setSchools(schoolsData);
       } catch (err) {
         console.error('Error loading schools:', err);
+        // Set default schools as fallback
+        setSchools([
+          { id: 'default-school-1', name: 'Default School 1' },
+          { id: 'default-school-2', name: 'Default School 2' }
+        ]);
       }
     };
     loadSchools();
@@ -42,17 +49,29 @@ export function TransactionsOverview() {
     const loadTransactions = async () => {
       try {
         setLoading(true);
+        console.log('Loading transactions with params:', {
+          page: currentPage,
+          limit: pageSize,
+          ...filters
+        });
+        
         const response = await fetchTransactions({
           page: currentPage,
           limit: pageSize,
           ...filters,
         });
+        
+        console.log('Transactions loaded:', response);
         setTransactions(response.data || []);
         setTotalItems(response.total || 0);
         setError(null);
       } catch (err) {
-        setError('Failed to fetch transactions.');
         console.error('Error loading transactions:', err);
+        setError('Failed to fetch transactions. Please check server connection.');
+        
+        // Set default empty state
+        setTransactions([]);
+        setTotalItems(0);
       } finally {
         setLoading(false);
       }
