@@ -22,7 +22,7 @@ export class AuthService {
 
   // --- Sign Up Logic ---
   async signUp(signUpDto: SignUpDto): Promise<User> {
-    const { email, password } = signUpDto;
+    const { email, password, name, schoolId, role } = signUpDto;
 
     // 1. Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,6 +32,9 @@ export class AuthService {
       const user = await this.userModel.create({
         email,
         password: hashedPassword,
+        name,
+        schoolId,
+        role,
       });
       return user;
     } catch (error) {
@@ -44,7 +47,7 @@ export class AuthService {
   }
 
   // --- Login Logic ---
-  async login(loginDto: LoginDto): Promise<{ accessToken: string }> {
+  async login(loginDto: LoginDto): Promise<{ accessToken: string; user: any }> {
     const { email, password } = loginDto;
 
     // 1. Find user by email
@@ -60,9 +63,17 @@ export class AuthService {
     }
 
     // 3. Generate JWT
-    const payload = { id: user._id, email: user.email };
+    const payload = { id: user._id, email: user.email, role: user.role };
     const accessToken = await this.jwtService.sign(payload);
 
-    return { accessToken };
+    // 4. Return token and user info (excluding password)
+    const userResponse = {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      role: user.role
+    };
+
+    return { accessToken, user: userResponse };
   }
 }
