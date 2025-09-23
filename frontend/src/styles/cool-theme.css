@@ -1,0 +1,195 @@
+/* Cool Theme Colors */
+:root {
+  --cool-slate: #64748B;
+  --cool-slate-dark: #475569;
+  --cool-slate-darker: #334155;
+  --cool-slate-light: #94A3B8;
+  --cool-slate-lighter: #CBD5E1;
+  --cool-indigo: #6366F1;
+  --cool-indigo-dark: #4F46E5;
+  --cool-indigo-light: #818CF8;
+  --cool-teal: #2DD4BF;
+  --cool-teal-dark: #14B8A6;
+  --cool-teal-light: #5EEAD4;
+  --cool-dark: #1E293B;
+  --cool-dark-light: #334155;
+  --cool-light: #F8FAFC;
+  --cool-light-dark: #F1F5F9;
+  --cool-accent: #9333EA;
+  --cool-accent-light: #A855F7;
+  --cool-text: #0F172A;
+  --cool-text-light: #475569;
+}
+
+/* Background colors */
+.bg-cool-slate {
+  background-color: var(--cool-slate);
+}
+.bg-cool-slate-dark {
+  background-color: var(--cool-slate-dark);
+}
+.bg-cool-slate-darker {
+  background-color: var(--cool-slate-darker);
+}
+.bg-cool-slate-light {
+  background-color: var(--cool-slate-light);
+}
+.bg-cool-slate-lighter {
+  background-color: var(--cool-slate-lighter);
+}
+.bg-cool-indigo {
+  background-color: var(--cool-indigo);
+}
+.bg-cool-indigo-dark {
+  background-color: var(--cool-indigo-dark);
+}
+.bg-cool-indigo-light {
+  background-color: var(--cool-indigo-light);
+}
+.bg-cool-teal {
+  background-color: var(--cool-teal);
+}
+.bg-cool-teal-dark {
+  background-color: var(--cool-teal-dark);
+}
+.bg-cool-teal-light {
+  background-color: var(--cool-teal-light);
+}
+.bg-cool-dark {
+  background-color: var(--cool-dark);
+}
+.bg-cool-dark-light {
+  background-color: var(--cool-dark-light);
+}
+.bg-cool-light {
+  background-color: var(--cool-light);
+}
+.bg-cool-light-dark {
+  background-color: var(--cool-light-dark);
+}
+.bg-cool-accent {
+  background-color: var(--cool-accent);
+}
+.bg-cool-accent-light {
+  background-color: var(--cool-accent-light);
+}
+
+/* Text colors */
+.text-cool-text {
+  color: var(--cool-text);
+}
+.text-cool-text-light {
+  color: var(--cool-text-light);
+}
+.text-cool-slate {
+  color: var(--cool-slate);
+}
+.text-cool-slate-dark {
+  color: var(--cool-slate-dark);
+}
+.text-cool-slate-light {
+  color: var(--cool-slate-light);
+}
+.text-cool-indigo {
+  color: var(--cool-indigo);
+}
+.text-cool-indigo-dark {
+  color: var(--cool-indigo-dark);
+}
+.text-cool-indigo-light {
+  color: var(--cool-indigo-light);
+}
+.text-cool-teal {
+  color: var(--cool-teal);
+}
+.text-cool-teal-dark {
+  color: var(--cool-teal-dark);
+}
+.text-cool-accent {
+  color: var(--cool-accent);
+}
+
+/* Border colors */
+.border-cool-slate {
+  border-color: var(--cool-slate);
+}
+.border-cool-indigo {
+  border-color: var(--cool-indigo);
+}
+.border-cool-teal {
+  border-color: var(--cool-teal);
+}
+.border-cool-dark {
+  border-color: var(--cool-dark);
+}
+.border-cool-light {
+  border-color: var(--cool-light);
+}
+
+/* Opacity variants */
+.bg-cool-indigo\/20 {
+  background-color: rgba(99, 102, 241, 0.2);
+}
+.bg-cool-indigo\/50 {
+  background-color: rgba(99, 102, 241, 0.5);
+}
+.bg-cool-slate\/20 {
+  background-color: rgba(100, 116, 139, 0.2);
+}
+.bg-cool-slate\/50 {
+  background-color: rgba(100, 116, 139, 0.5);
+}
+.border-cool-indigo\/20 {
+  border-color: rgba(99, 102, 241, 0.2);
+}
+.border-cool-slate\/20 {
+  border-color: rgba(100, 116, 139, 0.2);
+}
+.border-cool-slate\/50 {
+  border-color: rgba(100, 116, 139, 0.5);
+}
+
+/* Hover variants */
+.hover\:bg-cool-indigo:hover {
+  background-color: var(--cool-indigo);
+}
+.hover\:bg-cool-indigo-dark:hover {
+  background-color: var(--cool-indigo-dark);
+}
+.hover\:bg-cool-slate:hover {
+  background-color: var(--cool-slate);
+}
+.hover\:bg-cool-slate-dark:hover {
+  background-color: var(--cool-slate-dark);
+}
+.hover\:text-cool-indigo:hover {
+  color: var(--cool-indigo);
+}
+.hover\:text-cool-teal:hover {
+  color: var(--cool-teal);
+}
+.hover\:border-cool-indigo:hover {
+  border-color: var(--cool-indigo);
+}
+.hover\:from-cool-indigo:hover {
+  --tw-gradient-from: #6366F1 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(99 102 241 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.hover\:to-cool-indigo-light:hover {
+  --tw-gradient-to: var(--cool-indigo-light) var(--tw-gradient-to-position);
+}
+
+/* Focus variants */
+.focus\:border-cool-indigo:focus {
+  border-color: var(--cool-indigo);
+}
+.focus\:ring-cool-indigo:focus {
+  --tw-ring-color: var(--cool-indigo);
+}
+.focus\:ring-cool-indigo\/20:focus {
+  --tw-ring-color: rgba(99, 102, 241, 0.2);
+}
+.focus\:ring-cool-teal:focus {
+  --tw-ring-color: var(--cool-teal);
+}
