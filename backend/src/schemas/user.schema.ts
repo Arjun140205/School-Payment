@@ -15,6 +15,15 @@ export class User {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop()
+  name: string;
+
+  @Prop()
+  schoolId: string;
+  
+  @Prop({ default: 'school' })
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
