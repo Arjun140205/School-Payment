@@ -18,6 +18,12 @@ import { QueryParamsDto } from '../auth/dto/query-params.dto';
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
+  @Get('/schools')
+  @UseGuards(AuthGuard())
+  getSchools() {
+    return this.paymentsService.getSchools();
+  }
+
   @Post('/create-payment')
   @UseGuards(AuthGuard()) // Protect this route
   createPayment(
