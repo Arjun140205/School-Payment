@@ -2,6 +2,10 @@
 import axios from 'axios';
 import type { Transaction, TransactionFilters, TransactionStatus } from '../types/transaction';
 
+// Add retry functionality
+const MAX_RETRIES = 2;
+const RETRY_DELAY = 1000; // 1 second
+
 interface PaginationParams {
   page: number;
   limit: number;
@@ -24,7 +28,9 @@ const API_URL = 'http://localhost:3000';
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 10000, // 10 second timeout
+  timeout: 30000, // 30 second timeout
+  // Add CORS support
+  withCredentials: false,
 });
 
 console.log(`API client initialized with baseURL: ${API_URL}`);
@@ -35,7 +41,8 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  console.log('Request:', config.method, config.url, config.data);
+  // Disabled excessive logging
+  // console.log('Request:', config.method, config.url, config.data);
   return config;
 }, (error) => {
   console.error('Request error:', error);
@@ -43,7 +50,8 @@ api.interceptors.request.use((config) => {
 });// Add response interceptor to handle errors
 api.interceptors.response.use(
   (response) => {
-    console.log('Response:', response.status, response.config.url, response.data);
+    // Disabled excessive logging
+    // console.log('Response:', response.status, response.config.url, response.data);
     return response;
   },
   (error) => {
@@ -108,30 +116,51 @@ export const signupUser = async (userData: {
 export const fetchTransactions = async (
   params?: PaginationParams & Partial<TransactionFilters> & { sort?: string; order?: 'asc' | 'desc' }
 ): Promise<TransactionResponse> => {
-  try {
-    const { data } = await api.get('/payments/transactions', { params });
-    return data;
-  } catch (error) {
-    console.error('Error fetching transactions:', error);
-    // Return mock data if API call fails
-    return {
-      data: [
-        {
-          collect_id: 'mock-1',
-          school_id: 'mock-school-1',
-          gateway: 'Mock Gateway',
-          order_amount: 1000,
-          transaction_amount: 1000,
-          status: 'COMPLETED',
-          custom_order_id: 'mock-order-1',
-          created_at: new Date().toISOString()
-        }
-      ],
-      total: 1,
-      page: 1,
-      limit: 10
-    };
-  }
+  let retries = 0;
+  
+  // Function to make the API call with retries
+  const makeRequest = async (): Promise<TransactionResponse> => {
+    try {
+      const { data } = await api.get('/payments/transactions', { params });
+      return data;
+    } catch (error) {
+      // If we have retries left and it's a timeout error
+      const axiosError = error as any; // Type assertion to access properties
+      if (retries < MAX_RETRIES && 
+          (axios.isCancel(error) || axiosError.code === 'ECONNABORTED' || !axiosError.response)) {
+        retries++;
+        console.log(`Retry attempt ${retries} for transaction data...`);
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+        // Retry the request
+        return makeRequest();
+      }
+      
+      console.error('Error fetching transactions after retries:', error);
+      
+      // Return mock data if API call fails after all retries
+      return {
+        data: [
+          {
+            collect_id: 'mock-1',
+            school_id: 'mock-school-1',
+            gateway: 'Mock Gateway',
+            order_amount: 1000,
+            transaction_amount: 1000,
+            status: 'COMPLETED',
+            custom_order_id: 'mock-order-1',
+            created_at: new Date().toISOString()
+          }
+        ],
+        total: 1,
+        page: 1,
+        limit: 10
+      };
+    }
+  };
+  
+  // Start the request process
+  return makeRequest();
 };
 
 export const fetchSchoolTransactions = async (
@@ -157,8 +186,27 @@ export const fetchSchools = async (): Promise<School[]> => {
 };
 
 export const checkTransactionStatus = async (transactionId: string): Promise<Transaction> => {
-  const { data } = await api.get(`/payments/transactions/${transactionId}/status`);
-  return data;
+  try {
+    const { data } = await api.get(`/payments/transaction-status/${transactionId}`);
+    
+    // The backend returns { status: 'STATUS' }, but we need to adapt it to match our Transaction type
+    if (data && typeof data === 'object' && 'status' in data) {
+      // Convert minimal response to a Transaction object
+      return {
+        collect_id: transactionId, // Using the ID that was passed
+        custom_order_id: transactionId,
+        school_id: '',
+        gateway: '',
+        order_amount: 0,
+        transaction_amount: 0,
+        status: data.status,
+      };
+    }
+    return data;
+  } catch (error) {
+    console.error('Error checking transaction status:', error);
+    throw error;
+  }
 };
 
 export default api;
