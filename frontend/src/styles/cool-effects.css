@@ -1,0 +1,245 @@
+/* Cool Effects & Interactions */
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Card effects */
+.cool-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 300ms ease;
+}
+
+.cool-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.dark .cool-card {
+  background-color: var(--cool-dark);
+  border-color: rgba(51, 65, 85, 0.5);
+}
+
+/* Glass effect */
+.cool-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .cool-glass {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.2);
+}
+
+/* Button styles */
+.btn-cool-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--cool-indigo);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cool-primary:hover {
+  background-color: var(--cool-indigo-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+}
+
+.btn-cool-primary:active {
+  transform: translateY(0px);
+}
+
+.btn-cool-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-cool-primary:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+.btn-cool-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--cool-teal);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 200ms ease;
+}
+
+.btn-cool-secondary:hover {
+  background-color: var(--cool-teal-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(45, 212, 191, 0.2);
+}
+
+.btn-cool-secondary:active {
+  transform: translateY(0px);
+}
+
+.btn-cool-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--cool-slate-dark);
+  border: 1px solid var(--cool-slate-light);
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 200ms ease;
+}
+
+.btn-cool-outline:hover {
+  border-color: var(--cool-indigo);
+  color: var(--cool-indigo);
+  background-color: rgba(99, 102, 241, 0.05);
+}
+
+/* Input styling */
+.input-cool {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  color: var(--cool-text);
+  border: 1px solid var(--cool-slate-lighter);
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 200ms ease;
+}
+
+.input-cool:focus {
+  outline: none;
+  border-color: var(--cool-indigo);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.dark .input-cool {
+  background-color: var(--cool-dark-light);
+  border-color: rgba(51, 65, 85, 0.5);
+  color: white;
+}
+
+.dark .input-cool::placeholder {
+  color: var(--cool-slate-light);
+}
+
+/* Badge styling */
+.badge-cool {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--cool-indigo);
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 9999px;
+}
+
+.badge-cool-secondary {
+  color: var(--cool-teal);
+  background-color: rgba(45, 212, 191, 0.1);
+}
+
+.badge-cool-neutral {
+  color: var(--cool-slate-dark);
+  background-color: rgba(100, 116, 139, 0.1);
+}
+
+/* Animation effects */
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0, 0);
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite;
+}
+
+@keyframes pulse-subtle {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
