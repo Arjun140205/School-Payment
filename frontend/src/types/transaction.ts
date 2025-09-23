@@ -12,7 +12,7 @@ export interface Transaction {
   updated_at?: string;
 }
 
-export type TransactionStatus = 'Success' | 'Pending' | 'Failed';
+export type TransactionStatus = 'Success' | 'Pending' | 'Failed' | 'PENDING' | 'COMPLETED' | 'FAILED' | 'REFUNDED' | string;
 
 export interface TransactionFilters {
   status: string;
