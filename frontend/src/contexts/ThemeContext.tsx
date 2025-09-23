@@ -23,14 +23,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
+    // Apply theme immediately when it changes
+    applyTheme(theme);
+  }, [theme]);
+  
+  // Apply theme to document and localStorage
+  const applyTheme = (newTheme: Theme) => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    root.classList.add(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    // Force re-apply theme to ensure it takes effect
+    setTimeout(() => {
+      applyTheme(newTheme);
+    }, 0);
   };
 
   return (
